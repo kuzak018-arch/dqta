@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0d0f13">
+  <title>Dota 2 — песочница сборок</title>
+  <meta name="description" content="Песочница сборок предметов Dota 2: слоты, этапы, сумма золота и шаринг ссылкой.">
+  <link rel="preconnect" href="https://cdn.cloudflare.steamstatic.com">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">Dota 2 <span>песочница сборок</span></h1>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </header>
+
+  <main class="layout" id="app" aria-busy="true">
+    <aside class="panel panel--heroes" aria-labelledby="heroes-title">
+      <h2 class="panel-title" id="heroes-title">Герой</h2>
+      <input class="search" id="hero-search" type="search" placeholder="Найти героя" autocomplete="off" aria-label="Поиск героя">
+      <div class="panel-scroll" id="hero-list"></div>
+    </aside>
+
+    <section class="panel panel--build" aria-labelledby="build-title">
+      <h2 class="visually-hidden" id="build-title">Слоты</h2>
+      <div class="hero-card" id="hero-card"></div>
+
+      <div class="slots">
+        <div class="slot-block">
+          <h3 class="slot-title">Инвентарь</h3>
+          <div class="slot-grid slot-grid--inventory" id="slots-inventory"></div>
+        </div>
+        <div class="slot-row">
+          <div class="slot-block">
+            <h3 class="slot-title">Рюкзак</h3>
+            <div class="slot-grid slot-grid--backpack" id="slots-backpack"></div>
+          </div>
+          <div class="slot-block">
+            <h3 class="slot-title">Нейтральный</h3>
+            <div class="slot-grid slot-grid--neutral" id="slots-neutral"></div>
+          </div>
+        </div>
+      </div>
+      <p class="slots-total">Инвентарь и рюкзак: <span id="slots-total"></span></p>
+    </section>
+
+    <aside class="panel panel--catalog" aria-labelledby="catalog-title">
+      <h2 class="panel-title" id="catalog-title">Предметы</h2>
+      <div class="catalog-controls">
+        <input class="search" id="item-search" type="search" placeholder="Найти предмет" autocomplete="off" aria-label="Поиск предмета">
+        <select class="select" id="item-category" aria-label="Категория магазина"></select>
+      </div>
+      <div class="panel-scroll" id="catalog"></div>
+    </aside>
+  </main>
+
+  <section class="build" aria-labelledby="sections-title">
+    <div class="build-head">
+      <h2 class="panel-title" id="sections-title">Этапы сборки</h2>
+      <p class="build-total">Всего: <span id="build-total"></span></p>
+    </div>
+    <div class="sections" id="sections"></div>
+    <button class="btn btn--ghost add-section" id="add-section" type="button">+ Добавить секцию</button>
+  </section>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
