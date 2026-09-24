@@ -34,13 +34,17 @@ function goldLabel(amount) {
 export function itemTile(item, origin = {}) {
   const badge = item.neutral ? `T${item.tier}` : (item.cost ? formatGold(item.cost) : '');
   const hint = item.neutral ? `${item.name} — нейтральный, уровень ${item.tier}` : `${item.name} — ${formatGold(item.cost)} золота`;
+  const removable = Boolean(origin.zone);
   const tile = el('div', {
-    class: `item${item.neutral ? ' item--neutral' : ''}`,
+    class: `item${item.neutral ? ' item--neutral' : ''}${removable ? ' item--removable' : ''}`,
     'data-key': item.key,
     'data-origin': origin.zone || 'catalog',
     'data-index': origin.index,
     'data-section-id': origin.sectionId,
-    title: hint,
+    title: removable ? `${hint}\nНажмите, чтобы убрать` : hint,
+    tabindex: removable ? '0' : null,
+    role: removable ? 'button' : null,
+    'aria-label': removable ? `Убрать: ${item.name}` : null,
   }, [
     image(item.img, item.name),
     el('span', { class: 'item-fallback', text: item.name }),
@@ -132,7 +136,7 @@ export function renderSections(container, data, sections) {
 
   container.replaceChildren(...sections.map((section) => {
     const items = section.items.map((key) => data.items.get(key)).filter(Boolean);
-    return el('article', { class: 'section', 'data-section-id': section.id }, [
+    return el('article', { class: 'section', 'data-drop': 'section', 'data-section-id': section.id }, [
       el('header', { class: 'section-head' }, [
         el('input', {
           class: 'section-title',
@@ -151,7 +155,7 @@ export function renderSections(container, data, sections) {
           'data-section-id': section.id,
         }, '×'),
       ]),
-      el('div', { class: 'section-items', 'data-drop': 'section', 'data-section-id': section.id },
+      el('div', { class: 'section-items' },
         items.length
           ? section.items.map((key, index) => {
             const item = data.items.get(key);

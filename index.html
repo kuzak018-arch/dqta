@@ -44,9 +44,11 @@
         </div>
       </div>
       <p class="slots-total">Инвентарь и рюкзак: <span id="slots-total"></span></p>
+      <p class="build-hint">Перетаскивайте предметы из каталога в слоты и секции. Клик по предмету убирает его.
+        На телефоне задержите палец на предмете, затем тяните.</p>
     </section>
 
-    <aside class="panel panel--catalog" aria-labelledby="catalog-title">
+    <aside class="panel panel--catalog" data-drop="trash" aria-labelledby="catalog-title">
       <h2 class="panel-title" id="catalog-title">Предметы</h2>
       <div class="catalog-controls">
         <input class="search" id="item-search" type="search" placeholder="Найти предмет" autocomplete="off" aria-label="Поиск предмета">

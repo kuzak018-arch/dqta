@@ -1,5 +1,6 @@
 import { loadData } from './data.js';
-import { createStore, createDefaultBuild } from './state.js';
+import { createStore, createDefaultBuild, canPlace } from './state.js';
+import { setupDragAndDrop } from './dnd.js';
 import {
   el, renderHeroes, renderHeroCard, renderSlots, renderCatalog, renderSections, renderTotals,
 } from './render.js';
@@ -111,6 +112,33 @@ async function init() {
     dom.catalog.scrollTop = 0;
     drawCatalog();
   });
+
+  // Перетаскивание и удаление по клику
+  setupDragAndDrop({
+    getItem: (key) => data.items.get(key),
+    canDrop: (key, to) => canPlace(data.items.get(key), to),
+    onDrop: (key, from, to) => {
+      if (to.zone === 'trash') store.removeAt(from);
+      else store.drop(key, from, to);
+    },
+  });
+
+  const removeTile = (tile) => {
+    const zone = tile.dataset.origin;
+    store.removeAt({ zone, index: Number(tile.dataset.index), sectionId: tile.dataset.sectionId });
+  };
+  for (const container of [dom.sections, ...Object.values(dom.slots)]) {
+    container.addEventListener('click', (event) => {
+      const tile = event.target.closest('.item--removable');
+      if (tile) removeTile(tile);
+    });
+    container.addEventListener('keydown', (event) => {
+      const tile = event.target.closest('.item--removable');
+      if (!tile || (event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Delete' && event.key !== 'Backspace')) return;
+      event.preventDefault();
+      removeTile(tile);
+    });
+  }
 
   // Секции
   dom.addSection.addEventListener('click', () => {
