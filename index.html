@@ -14,6 +14,10 @@
   <header class="topbar">
     <h1 class="brand">Dota 2 <span>песочница сборок</span></h1>
     <p class="status" id="status" role="status" aria-live="polite"></p>
+    <div class="topbar-actions">
+      <button class="btn btn--ghost" id="reset-build" type="button">Сбросить</button>
+      <button class="btn btn--primary" id="share-build" type="button">Поделиться ссылкой</button>
+    </div>
   </header>
 
   <main class="layout" id="app" aria-busy="true">
@@ -66,6 +70,8 @@
     <div class="sections" id="sections"></div>
     <button class="btn btn--ghost add-section" id="add-section" type="button">+ Добавить секцию</button>
   </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
   <script type="module" src="js/main.js"></script>
 </body>

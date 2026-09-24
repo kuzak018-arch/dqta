@@ -91,6 +91,34 @@ button, input, select { font: inherit; color: inherit; }
 .status[data-kind="error"] { color: var(--danger); }
 .status[data-kind="ok"] { color: var(--ok); }
 
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 1100;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  background: #232a36;
+  box-shadow: 0 0 0 1px var(--border-strong), 0 10px 30px rgb(0 0 0 / .5);
+  color: var(--text);
+  transform: translateX(-50%);
+  animation: toast-in .18s ease-out;
+}
+
+.toast[hidden] { display: none; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+}
+
 /* ---------- раскладка ---------- */
 
 .layout {
@@ -743,6 +771,11 @@ body[data-drag-kind="neutral"] .slot--backpack { opacity: .3; }
   .panel--heroes { height: 260px; }
   .panel--catalog { height: min(560px, 70vh); }
   .sections { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .topbar-actions { width: 100%; }
+  .topbar-actions .btn { flex: 1; }
 }
 
 @media (max-width: 420px) {
